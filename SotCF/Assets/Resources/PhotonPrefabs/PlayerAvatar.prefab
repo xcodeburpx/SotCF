@@ -183,7 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCharacter: {fileID: 0}
   characterValue: 0
-  myTeam: 0
+  myName: None
+  secondLife: 0
   playerHealth: 100
   playerDamage: 15
 --- !u!114 &531

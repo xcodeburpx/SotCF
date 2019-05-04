@@ -10,6 +10,7 @@ public class PhotonPlayer : MonoBehaviour
     public PhotonView PV;
     public GameObject myAvatar;
     public int myTeam;
+    public bool isCreated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class PhotonPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myAvatar == null && myTeam != 0)
+        if (myAvatar == null && myTeam != 0 && isCreated == false)
         {
             int spawnPicker = Random.Range(0, GameSetup.GS.spawnPoints.Length);
             if (PV.IsMine)
@@ -34,6 +35,7 @@ public class PhotonPlayer : MonoBehaviour
                 //myAvatar.GetComponent<AvatarSetup>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().myCamera.SetActive(true);
+                PV.RPC("RPC_IsCreated", RpcTarget.AllBuffered);
             }
         }
     }
@@ -50,6 +52,12 @@ public class PhotonPlayer : MonoBehaviour
     void RPC_SentTeam(int whichTeam)
     {
         myTeam = whichTeam;
+    }
+
+    [PunRPC]
+    void RPC_IsCreated()
+    {
+        isCreated = true;
     }
 
 }

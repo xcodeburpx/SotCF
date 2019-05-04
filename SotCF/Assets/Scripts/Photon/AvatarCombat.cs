@@ -14,12 +14,14 @@ public class AvatarCombat : MonoBehaviour
     public Camera myCam;
 
     private Text healthDisplay;
+    private Text nameDisplay;
     // Start is called before the first frame update
     void Start()
     {
         PV = GetComponent<PhotonView>();
         avatarSetup = GetComponent<AvatarSetup>();
         healthDisplay = GameSetup.GS.healthDisplay;
+        nameDisplay = GameSetup.GS.nameDisplay;
     }
 
     // Update is called once per frame
@@ -29,37 +31,35 @@ public class AvatarCombat : MonoBehaviour
         { 
             return;
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RPC_Shooting();
         }
 
         healthDisplay.text = avatarSetup.playerHealth.ToString();
+        nameDisplay.text = avatarSetup.myName;
     }
 
     void RPC_Shooting()
     {
-        //if (PV.IsMine)
-        //{
-            RaycastHit hit;
-            Ray ray = myCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            //if (Physics.Raycast(rayOrigin.position, rayOrigin.TransformDirection(Vector3.forward), out hit, 1000f))
 
-            if (Physics.Raycast(ray, out hit, 1000))
+        RaycastHit hit;
+        Ray ray = myCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            Debug.Log("Did Hit");
+            Debug.Log("The Tag: " + hit.transform.tag);
+            if (hit.transform.tag == "Avatar" && hit.transform.GetComponent<AvatarSetup>().myName != GetComponent<AvatarSetup>().myName)
             {
-                Debug.Log("Did Hit");
-                Debug.Log("The Tag: " + hit.transform.tag);
-                if (hit.transform.tag == "Avatar")
-                {
-                    hit.transform.GetComponent<PhotonView>().RPC("RPC_ApplyDamage", RpcTarget.AllBuffered, GetComponent<AvatarSetup>().playerDamage);
-                }
-                //StartCoroutine(CreateParticle(hit));
+                hit.transform.GetComponent<PhotonView>().RPC("RPC_ApplyDamage", RpcTarget.AllBuffered, GetComponent<AvatarSetup>().playerDamage, GetComponent<AvatarSetup>().myName);
+
             }
-            else
-            {
-                Debug.Log("Did not Hit");
-            }
-        //}
+        }
+        else
+        {
+            Debug.Log("Did not Hit");
+        }
     }
 
     IEnumerator CreateParticle(RaycastHit hit)
@@ -70,13 +70,29 @@ public class AvatarCombat : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_ApplyDamage(int dmg)
+    void RPC_ApplyDamage(int dmg, string whichName)
     {
         GetComponent<AvatarSetup>().playerHealth -= dmg;
         if(GetComponent<AvatarSetup>().playerHealth <= 0)
         {
-            GetComponent<AvatarSetup>().playerHealth = 100;
+            if (GetComponent<AvatarSetup>().secondLife == false)
+            {
+                GetComponent<AvatarSetup>().playerHealth = 100;
+                GetComponent<AvatarSetup>().myName = whichName;
+                GetComponent<AvatarSetup>().secondLife = true;
+            }
+
+            else
+            {
+                GetComponent<AvatarSetup>().playerHealth = -1000;
+            }
         }
         Debug.Log("I Have been Hit!");
+    }
+
+    [PunRPC]
+    void RPC_ChangeName(string whichName)
+    {
+        GetComponent<AvatarSetup>().myName = whichName;
     }
 }

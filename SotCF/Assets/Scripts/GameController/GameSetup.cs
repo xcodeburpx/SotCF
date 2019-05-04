@@ -14,6 +14,7 @@ public class GameSetup : MonoBehaviour
     public Transform[] spawnPoints;
 
     public Text healthDisplay;
+    public Text nameDisplay;
     // Start is called before the first frame update
     private void OnEnable()
     {

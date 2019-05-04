@@ -40,5 +40,10 @@ MonoBehaviour:
   - RPC_ApplyDamage
   - RPC_GetTeam
   - RPC_SentTeam
+  - RPC_SetName
+  - RPC_ChangeName
+  - RPC_DestroyPlayer
+  - RPC_SetDead
+  - RPC_IsCreated
   DisableAutoOpenWizard: 1
   ShowSettings: 1

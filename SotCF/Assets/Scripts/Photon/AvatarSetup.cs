@@ -37,12 +37,14 @@ public class AvatarSetup : MonoBehaviour
 
     void Update()
     {
-        if(playerHealth == -1000)
+        if(playerHealth == -1000 || transform.position.y <= 5)
         {
             if (PV.IsMine)
             {
                 GameObject.FindGameObjectWithTag("PlayerCanvas").SetActive(false);
+                //GameObject.FindGameObjectWithTag("Spectator").SetActive(true);
                 GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorController>().enabled = true;
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
                 PhotonNetwork.Destroy(this.gameObject);

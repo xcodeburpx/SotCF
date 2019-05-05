@@ -8,7 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView PV;
     private CharacterController myCC;
 
-    public float speed = 10.0f;
+    public float slowSpeed = 10.0f;
+    public float fastSpeed = 40.0f;
+    private float speed;
+
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
     public bool canJump = true;
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             targetVelocity = transform.TransformDirection(targetVelocity);
+            speed = Input.GetButton("Run") ? fastSpeed : slowSpeed;
             targetVelocity *= speed;
 
             // Apply a force that attempts to reach our target velocity

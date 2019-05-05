@@ -32,7 +32,7 @@ public class PhotonRoomCustomMatch : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float atMaxPlayers;
     private float timeToStart;
 
-
+    public int radiusSpawn = 100;
     public GameObject lobbyGO;
     public GameObject roomGO;
     public Transform playersPanel;

@@ -118,7 +118,14 @@ public class PhotonLobbyCustomMatch : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void OnRoomSizeChanged(string sizeIn)
     {
-        roomSize = int.Parse(sizeIn);
+        if (sizeIn.Equals(""))
+        {
+            roomSize = 1;
+        }
+        else
+        {
+            roomSize = int.Parse(sizeIn);
+        }
 
     }
 

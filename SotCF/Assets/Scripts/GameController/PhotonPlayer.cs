@@ -28,10 +28,15 @@ public class PhotonPlayer : MonoBehaviour
         if (myAvatar == null && myTeam != 0 && isCreated == false)
         {
             int spawnPicker = Random.Range(0, GameSetup.GS.spawnPoints.Length);
+            Debug.Log("Spawn Point Number: " + spawnPicker);
             if (PV.IsMine)
             {
+                // Random spot in spawnPoint
+                var ran = Random.insideUnitSphere * PhotonRoomCustomMatch.room.radiusSpawn;
+                ran.y = 0.0f;
+
                 myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar"),
-                    GameSetup.GS.spawnPoints[spawnPicker].position, GameSetup.GS.spawnPoints[spawnPicker].rotation, 0);
+                    GameSetup.GS.spawnPoints[spawnPicker].position+ran, GameSetup.GS.spawnPoints[spawnPicker].rotation, 0);
                 //myAvatar.GetComponent<AvatarSetup>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().myCamera.SetActive(true);

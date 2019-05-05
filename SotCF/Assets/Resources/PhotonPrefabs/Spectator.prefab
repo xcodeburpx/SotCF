@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4711121153061734563}
   - component: {fileID: 4711121153061734562}
+  - component: {fileID: 7399054678324847777}
   m_Layer: 0
   m_Name: Spectator
   m_TagString: Spectator
@@ -52,6 +53,18 @@ MonoBehaviour:
   MaximumPitch: 90
   YawSensitivity: 10
   RotationSmoothFactor: 0.15
+--- !u!114 &7399054678324847777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4711121153061734560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d8b715dd523f7438ad2c9a1d8b7486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4711121153338786272
 GameObject:
   m_ObjectHideFlags: 0

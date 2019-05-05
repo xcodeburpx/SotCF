@@ -37,7 +37,7 @@ public class AvatarSetup : MonoBehaviour
 
     void Update()
     {
-        if(playerHealth == -1000 || transform.position.y <= 5)
+        if(playerHealth == -1000 || transform.position.y <= PhotonRoomCustomMatch.room.waterLevel)
         {
             if (PV.IsMine)
             {

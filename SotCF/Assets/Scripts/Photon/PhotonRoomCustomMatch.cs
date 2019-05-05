@@ -33,6 +33,8 @@ public class PhotonRoomCustomMatch : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float timeToStart;
 
     public int radiusSpawn = 100;
+    public float waterLevel = 5f;
+
     public GameObject lobbyGO;
     public GameObject roomGO;
     public Transform playersPanel;

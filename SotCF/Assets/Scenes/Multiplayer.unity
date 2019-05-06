@@ -1700,6 +1700,7 @@ GameObject:
   - component: {fileID: 5006512735110817745}
   - component: {fileID: 4044710140995231207}
   - component: {fileID: 7718390322622570782}
+  - component: {fileID: 8296172669421295043}
   m_Layer: 0
   m_Name: Terrain_Low_poly 1
   m_TagString: Untagged
@@ -1707,3 +1708,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!64 &8296172669421295043
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172669421295042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -2441658414131813105, guid: 28f716448f9a2ad45b4c908740652f70, type: 3}

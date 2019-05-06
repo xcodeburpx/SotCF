@@ -15,6 +15,8 @@ public class AvatarSetup : MonoBehaviour
     public int playerHealth;
     public int playerDamage;
 
+    public GameObject spectator;
+
 
     //public Camera myCamera;
     //public AudioListener myAL;
@@ -42,9 +44,10 @@ public class AvatarSetup : MonoBehaviour
             if (PV.IsMine)
             {
                 GameObject.FindGameObjectWithTag("PlayerCanvas").SetActive(false);
-                //GameObject.FindGameObjectWithTag("Spectator").SetActive(true);
                 GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorController>().enabled = true;
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
+                GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorMouseLock>().enabled = true;
+                GameObject.FindGameObjectWithTag("Spectator").transform.GetChild(0).gameObject.SetActive(true);
+                //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
                 PhotonNetwork.Destroy(this.gameObject);

@@ -22,6 +22,11 @@ public class SpectatorMouseLock : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -34,7 +34,8 @@ public class AvatarCombat : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RPC_Shooting();
-            RPC_ShootSound();        }
+            RPC_ShootSound();
+        }
 
         healthDisplay.text = avatarSetup.playerHealth.ToString();
         nameDisplay.text = avatarSetup.myName;
@@ -65,7 +66,7 @@ public class AvatarCombat : MonoBehaviour
     //[PunRPC]
     void RPC_ShootSound()
     {
-            var audioclip = GetComponent<AudioSource>();
+            var audioclip = transform.GetChild(1).GetComponent<AudioSource>();
             if (audioclip.isPlaying)
             {
                 audioclip.Stop();

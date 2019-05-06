@@ -34,8 +34,7 @@ public class AvatarCombat : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RPC_Shooting();
-            PV.RPC("RPC_ShootSound", RpcTarget.AllBuffered);
-        }
+            RPC_ShootSound();        }
 
         healthDisplay.text = avatarSetup.playerHealth.ToString();
         nameDisplay.text = avatarSetup.myName;
@@ -63,15 +62,16 @@ public class AvatarCombat : MonoBehaviour
         }
     }
 
-    [PunRPC]
+    //[PunRPC]
     void RPC_ShootSound()
     {
-        var audioclip = transform.GetChild(1).GetComponent<AudioSource>();
-        if (audioclip.isPlaying)
-        {
-            audioclip.Stop();
-        }
-        audioclip.Play();
+            var audioclip = GetComponent<AudioSource>();
+            if (audioclip.isPlaying)
+            {
+                audioclip.Stop();
+            }
+            audioclip.Play();
+        
     }
 
     IEnumerator CreateParticle(RaycastHit hit)

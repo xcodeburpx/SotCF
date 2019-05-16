@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rigidbody;
     public GameObject myCamera;
+
+    public PhotonView nameTag;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         myCC = GetComponent<CharacterController>();
+        nameTag.RPC("RPC_updateName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
     }
 
     void FixedUpdate()

@@ -46,5 +46,7 @@ MonoBehaviour:
   - RPC_SetDead
   - RPC_IsCreated
   - RPC_ShootSound
+  - updateName
+  - RPC_updateName
   DisableAutoOpenWizard: 1
   ShowSettings: 1

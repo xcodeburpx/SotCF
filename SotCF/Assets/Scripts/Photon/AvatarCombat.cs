@@ -66,7 +66,7 @@ public class AvatarCombat : MonoBehaviour
     [PunRPC]
     void RPC_ShootSound()
     {
-            var audioclip = transform.GetChild(1).GetComponent<AudioSource>();
+            var audioclip = transform.GetChild(2).GetComponent<AudioSource>();
             if (audioclip.isPlaying)
             {
                 audioclip.Stop();

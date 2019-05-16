@@ -97,6 +97,7 @@ public class AvatarCombat : MonoBehaviour
                 GetComponent<AvatarSetup>().myName = whichName;
                 GetComponent<AvatarSetup>().secondLife = true;
                 StartCoroutine(teamChange(whichName));
+                transform.localScale *= 0.5f;
 
             }
 

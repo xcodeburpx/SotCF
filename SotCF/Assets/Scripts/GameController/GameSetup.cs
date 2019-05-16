@@ -15,6 +15,7 @@ public class GameSetup : MonoBehaviour
 
     public Text healthDisplay;
     public Text nameDisplay;
+    public Text teamPlayerDisplay;
     // Start is called before the first frame update
     private void OnEnable()
     {

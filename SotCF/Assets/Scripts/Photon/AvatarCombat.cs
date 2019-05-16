@@ -15,6 +15,7 @@ public class AvatarCombat : MonoBehaviour
 
     private Text healthDisplay;
     private Text nameDisplay;
+    private Text teamPlayerDisplay;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,8 @@ public class AvatarCombat : MonoBehaviour
         avatarSetup = GetComponent<AvatarSetup>();
         healthDisplay = GameSetup.GS.healthDisplay;
         nameDisplay = GameSetup.GS.nameDisplay;
+        teamPlayerDisplay = GameSetup.GS.teamPlayerDisplay;
+        teamPlayerDisplay.text = "";
     }
 
     // Update is called once per frame
@@ -93,6 +96,8 @@ public class AvatarCombat : MonoBehaviour
                 GetComponent<AvatarSetup>().playerHealth = 100;
                 GetComponent<AvatarSetup>().myName = whichName;
                 GetComponent<AvatarSetup>().secondLife = true;
+                StartCoroutine(teamChange(whichName));
+
             }
 
             else
@@ -107,5 +112,15 @@ public class AvatarCombat : MonoBehaviour
     void RPC_ChangeName(string whichName)
     {
         GetComponent<AvatarSetup>().myName = whichName;
+    }
+
+    IEnumerator teamChange(string whichName)
+    {
+        if (PV.IsMine)
+        {
+            teamPlayerDisplay.text = "You have been teamed up with " + whichName;
+            yield return new WaitForSeconds(3f);
+            teamPlayerDisplay.text = "";
+        }
     }
 }

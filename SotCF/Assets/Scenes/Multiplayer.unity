@@ -467,6 +467,7 @@ MonoBehaviour:
   - {fileID: 367261897}
   healthDisplay: {fileID: 1606269603}
   nameDisplay: {fileID: 1820034482}
+  teamPlayerDisplay: {fileID: 92444179589941868}
 --- !u!4 &816519673
 Transform:
   m_ObjectHideFlags: 0
@@ -1417,6 +1418,18 @@ Transform:
   m_Father: {fileID: 807190302}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92444179589941868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 92444179589941868, guid: 2a4bb92b74178b64f983f4e2eee4b236,
+    type: 3}
+  m_PrefabInstance: {fileID: 3108330807907537654}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &257333665125050758
 MeshFilter:
   m_ObjectHideFlags: 0

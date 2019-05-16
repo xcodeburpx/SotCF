@@ -50,6 +50,7 @@ public class AvatarSetup : MonoBehaviour
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
+                GameSetup.GS.teamPlayerDisplay.text = "";
                 PhotonNetwork.Destroy(this.gameObject);
             }
         }

@@ -62,9 +62,9 @@ public class AvatarSetup : MonoBehaviour
     {
         return playerHealth <= -1000
             || transform.position.y <= PhotonRoomCustomMatch.room.waterLevel
-            || mySuperior == null;
-            //|| mySuperior.GetComponent<AvatarSetup>().playerHealth <= -1000 
-            //|| mySuperior.GetComponent<AvatarSetup>().secondLife;
+            || mySuperior == null
+            || mySuperior.GetComponent<AvatarSetup>().playerHealth <= -1000
+            || mySuperior.GetComponent<AvatarSetup>().secondLife;
     }
 
     [PunRPC]
@@ -83,15 +83,6 @@ public class AvatarSetup : MonoBehaviour
     [PunRPC]
     void RPC_SetSuperior(string whichSuperior)
     {
-        GameObject[] superiors = GameObject.FindGameObjectsWithTag("Avatar");
-        for (int i = 0; i < superiors.Length; i++)
-        {
-            if (superiors[i].GetComponent<PhotonView>().Owner.NickName == whichSuperior)
-            {
-                mySuperior = superiors[i];
-                break;
-            }
-
-        }
+        mySuperior = gameObject;
     }
 }

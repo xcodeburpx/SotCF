@@ -16,6 +16,7 @@ public class GameSetup : MonoBehaviour
     public Text healthDisplay;
     public Text nameDisplay;
     public Text teamPlayerDisplay;
+    public Text winningDisplay;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -24,6 +25,11 @@ public class GameSetup : MonoBehaviour
         {
             GameSetup.GS = this;
         }
+    }
+
+    private void Start()
+    {
+        GameSetup.GS.winningDisplay.text = "";
     }
 
     public void DisconnectPlayer()

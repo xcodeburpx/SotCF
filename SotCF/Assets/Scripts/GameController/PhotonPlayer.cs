@@ -90,15 +90,24 @@ public class PhotonPlayer : MonoBehaviour
             if (length == players.Length && winner != "None")
             {
                 Debug.Log("ENTERED ForceMenu Coroutine()");
-                PV.RPC("RPC_ForceKick", RpcTarget.All);
+                PV.RPC("RPC_ForceKick", RpcTarget.All, winner);
                 ifGameWon = true;
             }
         }
     }
     [PunRPC]
-    void RPC_ForceKick()
+    void RPC_ForceKick(string winner)
     {
+        StartCoroutine(WinningScreen(winner));
         StartCoroutine(ForceMenu());
+    }
+
+    IEnumerator WinningScreen(string winner)
+    {
+        GameSetup.GS.teamPlayerDisplay.text = "";
+        GameSetup.GS.winningDisplay.text = winner + " has won the game!!";
+        yield return new WaitForSeconds(3f);
+        GameSetup.GS.winningDisplay.text = "";
     }
 
     IEnumerator ForceMenu()
@@ -106,7 +115,7 @@ public class PhotonPlayer : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Game has been won! Force Reload to menu");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             GameSetup.GS.DisconnectPlayer();
         }
     }

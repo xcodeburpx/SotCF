@@ -116,6 +116,16 @@ public class PhotonLobbyCustomMatch : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     }
 
+    public void OnNickNameChanged(string nickNameIn)
+    {
+        if(nickNameIn.Length <= 1)
+        {
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+            return;
+        }
+        PhotonNetwork.NickName = nickNameIn;
+    }
+
     public void OnRoomSizeChanged(string sizeIn)
     {
         if (sizeIn.Equals(""))

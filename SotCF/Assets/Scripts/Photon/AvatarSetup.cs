@@ -54,6 +54,7 @@ public class AvatarSetup : MonoBehaviour
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
                 GameSetup.GS.teamPlayerDisplay.text = "";
+                GameSetup.GS.winningDisplay.text = "";
                 PhotonNetwork.Destroy(this.gameObject);
             }
         }

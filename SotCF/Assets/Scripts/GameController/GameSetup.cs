@@ -16,6 +16,7 @@ public class GameSetup : MonoBehaviour
     public Text healthDisplay;
     public Text nameDisplay;
     public Text teamPlayerDisplay;
+
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -32,12 +33,28 @@ public class GameSetup : MonoBehaviour
         StartCoroutine(DisconnectAndLoad());
     }
 
+    public void ForceDisconnect()
+    {
+        Destroy(PhotonRoomCustomMatch.room.gameObject);
+        //Destroy(PhotonRoom.room.gameObject);
+        StartCoroutine(ForceKickOut());
+        Destroy(PhotonRoomCustomMatch.room.gameObject);
+    }
+
+
+
     IEnumerator DisconnectAndLoad()
     {
-        //PhotonNetwork.Disconnect();
-        //while (PhotonNetwork.IsConnected)
         PhotonNetwork.LeaveRoom();
         while(PhotonNetwork.InRoom)
+            yield return null;
+        SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
+    }
+
+    IEnumerator ForceKickOut()
+    {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
             yield return null;
         SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
     }
@@ -46,4 +63,6 @@ public class GameSetup : MonoBehaviour
     {
         nextPlayersTeam++;
     }
+
+
 }

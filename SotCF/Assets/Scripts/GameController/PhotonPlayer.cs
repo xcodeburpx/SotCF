@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PhotonPlayer : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PhotonPlayer : MonoBehaviour
     public GameObject myAvatar;
     public int myTeam;
     public bool isCreated = false;
+
+
+    public bool ifGameWon = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,7 @@ public class PhotonPlayer : MonoBehaviour
         {
             PV.RPC("RPC_GetTeam", RpcTarget.MasterClient);
         }
+        StartCoroutine(CheckDelay());
 
     }
 
@@ -42,6 +47,67 @@ public class PhotonPlayer : MonoBehaviour
                 myAvatar.GetComponent<PlayerMovement>().myCamera.SetActive(true);
                 PV.RPC("RPC_IsCreated", RpcTarget.AllBuffered);
             }
+        }
+
+        CheckGame();
+    }
+
+    IEnumerator CheckDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        ifGameWon = false;
+    }
+
+    void CheckGame()
+    {
+        if (PhotonNetwork.IsMasterClient && !ifGameWon)
+        {
+            // Condition Parameters
+            string winner = "None";
+            int length;
+
+            // If player exists - grab first name
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Avatar");
+
+            //if (players.Length <= 0)
+            //    continue;
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                winner = players[0].GetComponent<AvatarSetup>().myName;
+                break;
+            }
+
+            // Look for occurence of first name
+            for (length = 0; length < players.Length; length++)
+            {
+                if (players[length].GetComponent<AvatarSetup>().myName != winner)
+                    break;
+            }
+            //Debug.Log("Winner name and length : " + winner + " | " + length);
+            //Debug.Log("Length of List : " + players.Length);
+
+            if (length == players.Length && winner != "None")
+            {
+                Debug.Log("ENTERED ForceMenu Coroutine()");
+                PV.RPC("RPC_ForceKick", RpcTarget.All);
+                ifGameWon = true;
+            }
+        }
+    }
+    [PunRPC]
+    void RPC_ForceKick()
+    {
+        StartCoroutine(ForceMenu());
+    }
+
+    IEnumerator ForceMenu()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Game has been won! Force Reload to menu");
+            yield return new WaitForSeconds(2f);
+            GameSetup.GS.ForceDisconnect();
         }
     }
 

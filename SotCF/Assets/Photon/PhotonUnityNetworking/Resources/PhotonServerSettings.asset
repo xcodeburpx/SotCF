@@ -49,5 +49,7 @@ MonoBehaviour:
   - updateName
   - RPC_updateName
   - RPC_SetSuperior
+  - ForceKick
+  - RPC_ForceKick
   DisableAutoOpenWizard: 1
   ShowSettings: 1

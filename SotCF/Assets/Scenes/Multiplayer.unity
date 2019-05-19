@@ -468,6 +468,7 @@ MonoBehaviour:
   healthDisplay: {fileID: 1606269603}
   nameDisplay: {fileID: 1820034482}
   teamPlayerDisplay: {fileID: 92444179589941868}
+  ifGameWon: 1
 --- !u!4 &816519673
 Transform:
   m_ObjectHideFlags: 0

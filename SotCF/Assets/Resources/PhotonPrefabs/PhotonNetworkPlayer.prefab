@@ -70,3 +70,4 @@ MonoBehaviour:
   myAvatar: {fileID: 0}
   myTeam: 0
   isCreated: 0
+  ifGameWon: 1

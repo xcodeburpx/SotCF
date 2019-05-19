@@ -107,7 +107,7 @@ public class PhotonPlayer : MonoBehaviour
         {
             Debug.Log("Game has been won! Force Reload to menu");
             yield return new WaitForSeconds(2f);
-            GameSetup.GS.ForceDisconnect();
+            GameSetup.GS.DisconnectPlayer();
         }
     }
 

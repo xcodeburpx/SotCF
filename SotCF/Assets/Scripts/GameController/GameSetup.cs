@@ -48,6 +48,7 @@ public class GameSetup : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         while(PhotonNetwork.InRoom)
             yield return null;
+        Destroy(PhotonRoomCustomMatch.room.gameObject);
         SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
     }
 

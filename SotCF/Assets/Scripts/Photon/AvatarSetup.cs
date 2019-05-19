@@ -10,6 +10,8 @@ public class AvatarSetup : MonoBehaviour
     public int characterValue;
 
     public string myName = "None";
+    public GameObject mySuperior = null;
+    //public bool mySuperiorExists = false;
     public bool secondLife = false;
 
     public int playerHealth;
@@ -29,6 +31,7 @@ public class AvatarSetup : MonoBehaviour
         {
             PV.RPC("RPC_SetName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
             PV.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
+            PV.RPC("RPC_SetSuperior", RpcTarget.AllBuffered, PhotonNetwork.NickName);
         }
         //else
         //{
@@ -39,7 +42,7 @@ public class AvatarSetup : MonoBehaviour
 
     void Update()
     {
-        if(playerHealth == -1000 || transform.position.y <= PhotonRoomCustomMatch.room.waterLevel)
+        if(checkDeath())
         {
             if (PV.IsMine)
             {
@@ -55,6 +58,14 @@ public class AvatarSetup : MonoBehaviour
             }
         }
     }
+    public bool checkDeath()
+    {
+        return playerHealth <= -1000
+            || transform.position.y <= PhotonRoomCustomMatch.room.waterLevel
+            || mySuperior == null;
+            //|| mySuperior.GetComponent<AvatarSetup>().playerHealth <= -1000 
+            //|| mySuperior.GetComponent<AvatarSetup>().secondLife;
+    }
 
     [PunRPC]
     void RPC_AddCharacter(int whichCharacter)
@@ -68,5 +79,19 @@ public class AvatarSetup : MonoBehaviour
     void RPC_SetName(string whichName)
     {
         myName = whichName;
+    }
+    [PunRPC]
+    void RPC_SetSuperior(string whichSuperior)
+    {
+        GameObject[] superiors = GameObject.FindGameObjectsWithTag("Avatar");
+        for (int i = 0; i < superiors.Length; i++)
+        {
+            if (superiors[i].GetComponent<PhotonView>().Owner.NickName == whichSuperior)
+            {
+                mySuperior = superiors[i];
+                break;
+            }
+
+        }
     }
 }

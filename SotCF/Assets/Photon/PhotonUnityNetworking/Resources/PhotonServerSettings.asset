@@ -48,5 +48,6 @@ MonoBehaviour:
   - RPC_ShootSound
   - updateName
   - RPC_updateName
+  - RPC_SetSuperior
   DisableAutoOpenWizard: 1
   ShowSettings: 1

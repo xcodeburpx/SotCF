@@ -187,6 +187,7 @@ MonoBehaviour:
   myCharacter: {fileID: 0}
   characterValue: 0
   myName: None
+  mySuperior: {fileID: 0}
   secondLife: 0
   playerHealth: 100
   playerDamage: 15

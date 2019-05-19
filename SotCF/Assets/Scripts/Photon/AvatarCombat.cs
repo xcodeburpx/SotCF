@@ -96,6 +96,17 @@ public class AvatarCombat : MonoBehaviour
                 GetComponent<AvatarSetup>().playerHealth = 100;
                 GetComponent<AvatarSetup>().myName = whichName;
                 GetComponent<AvatarSetup>().secondLife = true;
+                GameObject[] superiors = GameObject.FindGameObjectsWithTag("Avatar");
+                for(int i=0; i < superiors.Length; i++)
+                {
+                    if (superiors[i].GetComponent<PhotonView>().Owner.NickName == whichName)
+                    {
+                        GetComponent<AvatarSetup>().mySuperior = superiors[i];
+                        break;
+                    }
+                    
+                }
+                //GetComponent<AvatarSetup>().mySuperiorExists = true;
                 StartCoroutine(teamChange(whichName));
                 transform.localScale *= 0.5f;
 

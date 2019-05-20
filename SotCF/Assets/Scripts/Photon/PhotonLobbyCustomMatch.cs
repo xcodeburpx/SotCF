@@ -32,7 +32,9 @@ public class PhotonLobbyCustomMatch : MonoBehaviourPunCallbacks, ILobbyCallbacks
     {
         Debug.Log("Connected to Master Server!");
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
+        if (!PlayerPrefs.HasKey("NickName"))
+            PlayerPrefs.SetString("NickName", "Player " + Random.Range(0, 1000));
+        PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

@@ -29,6 +29,7 @@ public class GameSetup : MonoBehaviour
 
     private void Start()
     {
+        GameSetup.GS.teamPlayerDisplay.text = "";
         GameSetup.GS.winningDisplay.text = "";
     }
 
@@ -37,24 +38,30 @@ public class GameSetup : MonoBehaviour
         Destroy(PhotonRoomCustomMatch.room.gameObject);
         //Destroy(PhotonRoom.room.gameObject);
         StartCoroutine(DisconnectAndLoad());
+        Destroy(PhotonRoomCustomMatch.room.gameObject);
     }
 
     public void ForceDisconnect()
     {
+        //Destroy(PhotonRoomCustomMatch.room.gameObject);
         Destroy(PhotonRoomCustomMatch.room.gameObject);
-        //Destroy(PhotonRoom.room.gameObject);
         StartCoroutine(ForceKickOut());
-        Destroy(PhotonRoomCustomMatch.room.gameObject);
+        //StartCoroutine(DisconnectAndLoad());
+        //Destroy(PhotonRoomCustomMatch.room.gameObject);
     }
 
 
 
     IEnumerator DisconnectAndLoad()
     {
-        PhotonNetwork.LeaveRoom();
-        while(PhotonNetwork.InRoom)
+        if (PhotonNetwork.NetworkClientState != Photon.Realtime.ClientState.Leaving)
+        {
+            PhotonNetwork.LeaveRoom();
+            //Destroy(PhotonRoomCustomMatch.room.gameObject);
+        }
+        while (PhotonNetwork.InRoom)
             yield return null;
-        Destroy(PhotonRoomCustomMatch.room.gameObject);
+        //Destroy(PhotonRoomCustomMatch.room.gameObject);
         SceneManager.LoadScene(MultiplayerSettings.multiplayerSettings.menuScene);
     }
 

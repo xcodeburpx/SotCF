@@ -802,7 +802,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75bd1ec56d18dd14c9b6e4e8008fb451, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f8933e1ae22e4f7459b257949e15ef95, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 995267750}
   m_Layer: 0
   m_Name: CMMRoomController
-  m_TagString: Untagged
+  m_TagString: RoomController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -44,7 +44,7 @@ public class PhotonRoomCustomMatch : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private void Awake()
     {
-        if(PhotonRoomCustomMatch.room == null)
+        if (PhotonRoomCustomMatch.room == null)
         {
             PhotonRoomCustomMatch.room = this;
         }

@@ -13,6 +13,8 @@ public class AvatarCombat : MonoBehaviour
     public Transform rayOrigin;
     public Camera myCam;
 
+    public AudioClip[] hitSounds;
+
     private Text healthDisplay;
     private Text nameDisplay;
     private Text teamPlayerDisplay;
@@ -59,6 +61,10 @@ public class AvatarCombat : MonoBehaviour
                 hit.transform.GetComponent<PhotonView>().RPC("RPC_ApplyDamage", RpcTarget.AllBuffered, GetComponent<AvatarSetup>().playerDamage, GetComponent<AvatarSetup>().myName);
 
             }
+            else
+            {
+                PV.RPC("RPC_HitSound", RpcTarget.All, hit.point);
+            }
         }
         else
         {
@@ -78,6 +84,13 @@ public class AvatarCombat : MonoBehaviour
         
     }
 
+    [PunRPC]
+    void RPC_HitSound(Vector3 position)
+    {
+        int soundPicker = Random.Range(1, hitSounds.Length);
+        AudioSource.PlayClipAtPoint(hitSounds[soundPicker], position, 1.0f);
+    }
+
     IEnumerator CreateParticle(RaycastHit hit)
     {
         GameObject particle = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Particle"), hit.point, Quaternion.LookRotation(hit.normal), 0) as GameObject;
@@ -88,6 +101,10 @@ public class AvatarCombat : MonoBehaviour
     [PunRPC]
     void RPC_ApplyDamage(int dmg, string whichName)
     {
+        if (PV.IsMine)
+        {
+            AudioSource.PlayClipAtPoint(hitSounds[0], transform.position);
+        }
         GetComponent<AvatarSetup>().playerHealth -= dmg;
         if(GetComponent<AvatarSetup>().playerHealth <= 0)
         {

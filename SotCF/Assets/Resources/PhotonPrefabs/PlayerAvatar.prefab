@@ -206,6 +206,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayOrigin: {fileID: 241}
   myCam: {fileID: 378}
+  hitSounds:
+  - {fileID: 8300000, guid: 2df6968532472fb4989562c10b5f3964, type: 3}
+  - {fileID: 8300000, guid: ffa7a1acbc367094e97aadcd3ac8b9ca, type: 3}
+  - {fileID: 8300000, guid: 1993b88fefb85a84685b0cf20ff38768, type: 3}
+  - {fileID: 8300000, guid: 30c00bc0b90428c40bb67805fd31ba7d, type: 3}
 --- !u!54 &493
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -98,6 +98,7 @@ public class PhotonPlayer : MonoBehaviour
     [PunRPC]
     void RPC_ForceKick(string winner)
     {
+        ifGameWon = true;
         StartCoroutine(WinningScreen(winner));
         StartCoroutine(ForceMenu());
     }
@@ -112,12 +113,10 @@ public class PhotonPlayer : MonoBehaviour
 
     IEnumerator ForceMenu()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Game has been won! Force Reload to menu");
-            yield return new WaitForSeconds(4f);
-            GameSetup.GS.DisconnectPlayer();
-        }
+        Debug.Log("Game has been won! Force Reload to menu");
+        yield return new WaitForSeconds(4f);
+        //GameSetup.GS.DisconnectPlayer();
+        GameSetup.GS.ForceDisconnect();
     }
 
     [PunRPC]

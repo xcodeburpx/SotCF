@@ -118,12 +118,18 @@ public class PhotonLobbyCustomMatch : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     public void OnNickNameChanged(string nickNameIn)
     {
-        if(nickNameIn.Length <= 1)
+        if(!PlayerPrefs.HasKey("NickName"))
+            PlayerPrefs.SetString("NickName", "Player " + Random.Range(0, 1000));
+        if (nickNameIn.Length <= 1)
         {
-            PhotonNetwork.NickName = "Player " + Random.Range(0, 1000);
-            return;
+            PlayerPrefs.SetString("NickName", "Player " + Random.Range(0, 1000));
         }
-        PhotonNetwork.NickName = nickNameIn;
+        else
+        {
+            PlayerPrefs.SetString("NickName", nickNameIn);
+        }
+
+        PhotonNetwork.NickName = PlayerPrefs.GetString("NickName");
     }
 
     public void OnRoomSizeChanged(string sizeIn)

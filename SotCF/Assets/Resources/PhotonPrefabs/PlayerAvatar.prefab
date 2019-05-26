@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowSpeed: 10
-  fastSpeed: 40
+  fastSpeed: 15
   gravity: 20
   maxVelocityChange: 10
   canJump: 1
@@ -160,10 +160,10 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 2
+    TeleportIfDistanceGreaterThan: 25
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 5
+    InterpolateLerpSpeed: 2
     ExtrapolateOption: 1
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1

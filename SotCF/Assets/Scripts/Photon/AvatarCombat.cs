@@ -119,7 +119,7 @@ public class AvatarCombat : MonoBehaviour
                     if (superiors[i].GetComponent<PhotonView>().Owner.NickName == whichName)
                     {
                         GetComponent<AvatarSetup>().mySuperior = superiors[i];
-                        transform.GetChild(2).GetComponent<Material>().color = superiors[i].transform.GetChild(2).GetComponent<Material>().color;
+                        transform.GetChild(2).GetComponent<MeshRenderer>().material.color = superiors[i].transform.GetChild(2).GetComponent<MeshRenderer>().material.color;
                         break;
                     }
                     

@@ -7,7 +7,7 @@ public class ColorChanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Material>().color = new Color(
+        GetComponent<MeshRenderer>().material.color = new Color(
               Random.Range(0, 255),
               Random.Range(0, 255),
               Random.Range(0, 255),

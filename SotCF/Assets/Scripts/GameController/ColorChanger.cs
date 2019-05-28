@@ -10,8 +10,7 @@ public class ColorChanger : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = new Color(
               Random.Range(0, 255),
               Random.Range(0, 255),
-              Random.Range(0, 255),
-              255
+              Random.Range(0, 255)
           );
     }
 

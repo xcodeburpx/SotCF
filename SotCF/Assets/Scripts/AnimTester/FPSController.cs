@@ -36,7 +36,20 @@ public class FPSController : MonoBehaviour
     private Vector3 default_CamPos;
     private float camHeight;
 
+    private FPSPlayerAnimations playerAnimation;
 
+
+    [SerializeField]
+    private WeaponManager weapon_Manager;
+    private FPSWeapon current_Weapon;
+
+
+    private float fireRate = 15f;
+    private float nextTimeToFire = 0f;
+
+    [SerializeField]
+    private WeaponManager handsWeapon_Manager;
+    private FPSHandWeapon current_Hands_Weapon;
 
     // Start is called before the first frame update
     void Start()
@@ -50,12 +63,20 @@ public class FPSController : MonoBehaviour
         default_ControllerHeight = charController.height;
         default_CamPos = firstPerson_View.localPosition;
 
+        playerAnimation = GetComponent<FPSPlayerAnimations>();
+
+        weapon_Manager.weapons[0].SetActive(true);
+        current_Weapon = weapon_Manager.weapons[0].GetComponent<FPSWeapon>();
+
+        handsWeapon_Manager.weapons[0].SetActive(true);
+        current_Hands_Weapon = handsWeapon_Manager.weapons[0].GetComponent<FPSHandWeapon>();
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerMovement();
+        SelectWeapon();
     }
 
     void PlayerMovement()
@@ -117,6 +138,8 @@ public class FPSController : MonoBehaviour
         is_Grounded = (charController.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
 
         is_Moving = charController.velocity.magnitude > 0.15f;
+
+        HandleAnimations();
     }
 
     void PlayerCrouchingAndSprinting()
@@ -151,6 +174,8 @@ public class FPSController : MonoBehaviour
                 speed = walkSpeed;
             }
         }
+
+        playerAnimation.PlayerCrouch(is_Crouching);
     }
 
     bool CanGetUp()
@@ -198,12 +223,141 @@ public class FPSController : MonoBehaviour
                 {
                     is_Crouching = false;
 
+                    playerAnimation.PlayerCrouch(is_Crouching);
                     StopCoroutine(MoveCameraCrouch());
                     StartCoroutine(MoveCameraCrouch());
                 }
             } else
             {
                 moveDirection.y = jumpSpeed;
+            }
+        }
+    }
+
+    void HandleAnimations()
+    {
+        playerAnimation.Movement(charController.velocity.magnitude);
+        playerAnimation.PlayerJump(charController.velocity.y);
+
+        if(is_Crouching && charController.velocity.magnitude > 0f)
+        {
+            playerAnimation.PlayerCrouchWalk(charController.velocity.magnitude);
+        }
+
+        if(Input.GetMouseButtonDown(0) && Time.time > nextTimeToFire)
+        {
+            nextTimeToFire = Time.time + 1f / fireRate;
+
+            if(is_Crouching)
+            {
+                playerAnimation.Shoot(false);
+            } else
+            {
+                playerAnimation.Shoot(true);
+            }
+
+
+            current_Weapon.Shoot();
+            current_Hands_Weapon.Shoot();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            playerAnimation.ReloadGun();
+            current_Hands_Weapon.Reload();
+        }
+    }
+
+    void SelectWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if(!handsWeapon_Manager.weapons[0].activeInHierarchy)
+            {
+                for(int i = 0; i < handsWeapon_Manager.weapons.Length; i++)
+                {
+                    handsWeapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Hands_Weapon = null;
+
+                handsWeapon_Manager.weapons[0].SetActive(true);
+                current_Hands_Weapon = handsWeapon_Manager.weapons[0].GetComponent<FPSHandWeapon>();
+            }
+
+            if(!weapon_Manager.weapons[0].activeInHierarchy)
+            {
+                for(int i=0; i < weapon_Manager.weapons.Length; i++)
+                {
+                    weapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Weapon = null;
+                weapon_Manager.weapons[0].SetActive(true);
+                current_Weapon = weapon_Manager.weapons[0].GetComponent<FPSWeapon>();
+
+                playerAnimation.ChangeController(true);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (!handsWeapon_Manager.weapons[1].activeInHierarchy)
+            {
+                for (int i = 0; i < handsWeapon_Manager.weapons.Length; i++)
+                {
+                    handsWeapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Hands_Weapon = null;
+
+                handsWeapon_Manager.weapons[1].SetActive(true);
+                current_Hands_Weapon = handsWeapon_Manager.weapons[1].GetComponent<FPSHandWeapon>();
+            }
+
+            if (!weapon_Manager.weapons[1].activeInHierarchy)
+            {
+                for (int i = 0; i < weapon_Manager.weapons.Length; i++)
+                {
+                    weapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Weapon = null;
+                weapon_Manager.weapons[1].SetActive(true);
+                current_Weapon = weapon_Manager.weapons[1].GetComponent<FPSWeapon>();
+
+                playerAnimation.ChangeController(false);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+
+            if (!handsWeapon_Manager.weapons[2].activeInHierarchy)
+            {
+                for (int i = 0; i < handsWeapon_Manager.weapons.Length; i++)
+                {
+                    handsWeapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Hands_Weapon = null;
+
+                handsWeapon_Manager.weapons[2].SetActive(true);
+                current_Hands_Weapon = handsWeapon_Manager.weapons[2].GetComponent<FPSHandWeapon>();
+            }
+
+            if (!weapon_Manager.weapons[2].activeInHierarchy)
+            {
+                for (int i = 0; i < weapon_Manager.weapons.Length; i++)
+                {
+                    weapon_Manager.weapons[i].SetActive(false);
+                }
+
+                current_Weapon = null;
+                weapon_Manager.weapons[2].SetActive(true);
+                current_Weapon = weapon_Manager.weapons[2].GetComponent<FPSWeapon>();
+
+                playerAnimation.ChangeController(false);
             }
         }
     }

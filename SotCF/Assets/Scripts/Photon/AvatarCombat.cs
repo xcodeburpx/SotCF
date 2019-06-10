@@ -15,6 +15,8 @@ public class AvatarCombat : MonoBehaviour
 
     public AudioClip[] hitSounds;
 
+    public GameObject weaponObj;
+
     private Text healthDisplay;
     private Text nameDisplay;
     private Text teamPlayerDisplay;
@@ -38,8 +40,17 @@ public class AvatarCombat : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            RPC_Shooting();
-            PV.RPC("RPC_ShootSound", RpcTarget.All);
+            if (weaponObj.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length >
+                weaponObj.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+            {
+
+            }
+            else
+            {
+                RPC_Shooting();
+                //PV.RPC("RPC_ShootSound", RpcTarget.All);
+                weaponObj.GetComponent<FPSHandWeapon>().Shoot();
+            }
         }
 
         healthDisplay.text = avatarSetup.playerHealth.ToString();
@@ -72,17 +83,17 @@ public class AvatarCombat : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    void RPC_ShootSound()
-    {
-            var audioclip = transform.GetChild(2).GetComponent<AudioSource>();
-            if (audioclip.isPlaying)
-            {
-                audioclip.Stop();
-            }
-            audioclip.Play();
+    //[PunRPC]
+    //void RPC_ShootSound()
+    //{
+    //        var audioclip = transform.GetChild(2).GetComponent<AudioSource>();
+    //        if (audioclip.isPlaying)
+    //        {
+    //            audioclip.Stop();
+    //        }
+    //        audioclip.Play();
         
-    }
+    //}
 
     [PunRPC]
     void RPC_HitSound(Vector3 position)
@@ -119,7 +130,7 @@ public class AvatarCombat : MonoBehaviour
                     if (superiors[i].GetComponent<PhotonView>().Owner.NickName == whichName)
                     {
                         GetComponent<AvatarSetup>().mySuperior = superiors[i];
-                        transform.GetChild(2).GetComponent<MeshRenderer>().material.color = superiors[i].transform.GetChild(2).GetComponent<MeshRenderer>().material.color;
+                        GetComponent<Renderer>().material.color = superiors[i].GetComponent<Renderer>().material.color;
                         break;
                     }
                     

@@ -45,6 +45,7 @@ public class PhotonPlayer : MonoBehaviour
                 //myAvatar.GetComponent<AvatarSetup>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().myCamera.SetActive(true);
+                myAvatar.transform.Find("FPS View").GetComponent<SimpleSmoothMouseLook>().enabled = true;
                 PV.RPC("RPC_IsCreated", RpcTarget.AllBuffered);
             }
         }
@@ -54,7 +55,7 @@ public class PhotonPlayer : MonoBehaviour
 
     IEnumerator CheckDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         ifGameWon = false;
     }
 

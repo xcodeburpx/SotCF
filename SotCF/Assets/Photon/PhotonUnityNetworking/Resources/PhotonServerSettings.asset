@@ -52,5 +52,8 @@ MonoBehaviour:
   - ForceKick
   - RPC_ForceKick
   - RPC_HitSound
+  - RPC_HandShoot
+  - RPC_SoundShoot
+  - RPC_SetColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1

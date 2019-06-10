@@ -23,10 +23,14 @@ public class FPSMouseLook : MonoBehaviour
 
     private Quaternion originalRotation;
     private float mouseSensitivity = 1.7f;
+
+    public Animator anim;
+    private Transform chest;
     // Start is called before the first frame update
     void Start()
     {
         originalRotation = transform.rotation;
+        chest = anim.GetBoneTransform(HumanBodyBones.Chest);
     }
 
 
@@ -77,7 +81,9 @@ public class FPSMouseLook : MonoBehaviour
             rotation_Y = ClampAngle(rotation_Y, minimum_Y, maximum_Y);
 
             Quaternion yQuaternion = Quaternion.AngleAxis(-rotation_Y, Vector3.right);
+            Quaternion chestQuaternion = Quaternion.AngleAxis(-rotation_Y, Vector3.up);
             transform.localRotation = originalRotation * yQuaternion;
+            chest.rotation = chest.rotation * chestQuaternion;
         }
     }
 }

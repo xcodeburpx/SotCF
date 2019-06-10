@@ -32,6 +32,7 @@ public class AvatarSetup : MonoBehaviour
             PV.RPC("RPC_SetName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
             PV.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
             PV.RPC("RPC_SetSuperior", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+            PV.RPC("RPC_SetColor", RpcTarget.AllBuffered);
         }
         //else
         //{
@@ -72,7 +73,7 @@ public class AvatarSetup : MonoBehaviour
     void RPC_AddCharacter(int whichCharacter)
     {
         characterValue = whichCharacter;
-        myCharacter = Instantiate(PlayerInfo.PI.allCharacters[whichCharacter], transform.position, transform.rotation, transform);
+        //myCharacter = Instantiate(PlayerInfo.PI.allCharacters[whichCharacter], transform.position, transform.rotation, transform);
         //myCharacter.tag = "Avatar";
     }
 
@@ -85,5 +86,12 @@ public class AvatarSetup : MonoBehaviour
     void RPC_SetSuperior(string whichSuperior)
     {
         mySuperior = gameObject;
+    }
+
+    [PunRPC]
+    void RPC_SetColor()
+    {
+        Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
+        GetComponent<Renderer>().material.color = newColor;
     }
 }

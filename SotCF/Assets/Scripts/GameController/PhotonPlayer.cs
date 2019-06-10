@@ -55,7 +55,7 @@ public class PhotonPlayer : MonoBehaviour
 
     IEnumerator CheckDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(20f);
         ifGameWon = false;
     }
 

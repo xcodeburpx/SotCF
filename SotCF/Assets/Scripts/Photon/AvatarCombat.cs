@@ -20,6 +20,8 @@ public class AvatarCombat : MonoBehaviour
     private Text healthDisplay;
     private Text nameDisplay;
     private Text teamPlayerDisplay;
+
+    private float animTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,13 +42,13 @@ public class AvatarCombat : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            if (weaponObj.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length >
-                weaponObj.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+            if (Time.time - animTime < 1f)
             {
 
             }
             else
             {
+                animTime = Time.time;
                 RPC_Shooting();
                 //PV.RPC("RPC_ShootSound", RpcTarget.All);
                 weaponObj.GetComponent<FPSHandWeapon>().Shoot();
@@ -121,7 +123,7 @@ public class AvatarCombat : MonoBehaviour
         {
             if (GetComponent<AvatarSetup>().secondLife == false)
             {
-                GetComponent<AvatarSetup>().playerHealth = 100;
+                GetComponent<AvatarSetup>().playerHealth = 50;
                 GetComponent<AvatarSetup>().myName = whichName;
                 GetComponent<AvatarSetup>().secondLife = true;
                 GameObject[] superiors = GameObject.FindGameObjectsWithTag("Avatar");
@@ -137,6 +139,7 @@ public class AvatarCombat : MonoBehaviour
                 }
                 //GetComponent<AvatarSetup>().mySuperiorExists = true;
                 StartCoroutine(teamChange(whichName));
+                transform.Find("FPS View").GetComponent<SwitchSoundPlay>().PlaySwitchSound();
                 transform.localScale *= 0.5f;
 
             }

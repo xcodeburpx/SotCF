@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class AvatarSetup : MonoBehaviour
@@ -18,6 +19,7 @@ public class AvatarSetup : MonoBehaviour
     public int playerDamage;
 
     public GameObject spectator;
+    public string[] gravesNames;
 
 
     //public Camera myCamera;
@@ -31,8 +33,9 @@ public class AvatarSetup : MonoBehaviour
         {
             PV.RPC("RPC_SetName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
             PV.RPC("RPC_AddCharacter", RpcTarget.AllBuffered, PlayerInfo.PI.mySelectedCharacter);
+            Vector3 colorParams = new Vector3(Random.value, Random.value, Random.value);
             PV.RPC("RPC_SetSuperior", RpcTarget.AllBuffered, PhotonNetwork.NickName);
-            PV.RPC("RPC_SetColor", RpcTarget.AllBuffered);
+            PV.RPC("RPC_SetColor", RpcTarget.AllBuffered, colorParams.x, colorParams.y, colorParams.z);
         }
         //else
         //{
@@ -47,6 +50,7 @@ public class AvatarSetup : MonoBehaviour
         {
             if (PV.IsMine)
             {
+                int gravePicker = Random.Range(0, gravesNames.Length);
                 GameObject.FindGameObjectWithTag("PlayerCanvas").SetActive(false);
                 GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorController>().enabled = true;
                 GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorMouseLock>().enabled = true;
@@ -54,8 +58,9 @@ public class AvatarSetup : MonoBehaviour
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
-                GameSetup.GS.teamPlayerDisplay.text = "";
+                GameSetup.GS.teamPlayerDisplay.text = "Spectator Mode";
                 GameSetup.GS.winningDisplay.text = "";
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Graves", gravesNames[gravePicker]),transform.position, transform.rotation,0);
                 PhotonNetwork.Destroy(this.gameObject);
             }
         }
@@ -89,9 +94,9 @@ public class AvatarSetup : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_SetColor()
+    void RPC_SetColor(float x, float y, float z)
     {
-        Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
+        Color newColor = new Color(x, y, z, 1.0f);
         GetComponent<Renderer>().material.color = newColor;
     }
 }

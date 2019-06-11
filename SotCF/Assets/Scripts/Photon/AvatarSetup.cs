@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarSetup : MonoBehaviour
 {
@@ -51,15 +52,22 @@ public class AvatarSetup : MonoBehaviour
             if (PV.IsMine)
             {
                 int gravePicker = Random.Range(0, gravesNames.Length);
-                GameObject.FindGameObjectWithTag("PlayerCanvas").SetActive(false);
-                GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorController>().enabled = true;
-                GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorMouseLock>().enabled = true;
-                GameObject.FindGameObjectWithTag("Spectator").transform.GetChild(0).gameObject.SetActive(true);
+                //GameObject.FindGameObjectWithTag("PlayerCanvas").SetActive(false);
+                //GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorController>().enabled = true;
+                //GameObject.FindGameObjectWithTag("Spectator").GetComponent<SpectatorMouseLock>().enabled = true;
+                //GameObject.FindGameObjectWithTag("Spectator").transform.GetChild(0).gameObject.SetActive(true);
+                var playerCanvas = GameObject.FindGameObjectWithTag("PlayerCanvas");
+                var spectatior = GameObject.FindGameObjectWithTag("Spectator");
+                spectatior.GetComponent<SpectatorController>().enabled = true;
+                spectatior.GetComponent<SpectatorMouseLock>().enabled = true;
+                spectatior.transform.GetChild(0).gameObject.SetActive(true);
                 //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
+                playerCanvas.transform.Find("Image").gameObject.SetActive(false);
                 GameSetup.GS.healthDisplay.text = "";
                 GameSetup.GS.nameDisplay.text = "";
                 GameSetup.GS.teamPlayerDisplay.text = "Spectator Mode";
                 GameSetup.GS.winningDisplay.text = "";
+
                 PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Graves", gravesNames[gravePicker]),transform.position, transform.rotation,0);
                 PhotonNetwork.Destroy(this.gameObject);
             }

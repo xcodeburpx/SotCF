@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 1114981287592968312}
   - component: {fileID: -3567618775896988549}
   - component: {fileID: 3795125845033657907}
-  - component: {fileID: 6687838795811304768}
   m_Layer: 0
   m_Name: cross
   m_TagString: Untagged
@@ -280,22 +279,6 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!54 &6687838795811304768
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140624}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &146762
 GameObject:
   m_ObjectHideFlags: 0

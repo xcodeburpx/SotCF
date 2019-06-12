@@ -60,6 +60,18 @@ public class SpectatorController : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentRotation);
     }
 
+    void Awake()
+    {
+        currentRotation = transform.rotation.eulerAngles;
+        targetRotation = transform.rotation.eulerAngles;
+    }
+
+    void Start()
+    {
+        currentRotation = transform.rotation.eulerAngles;
+        targetRotation = transform.rotation.eulerAngles;
+    }
+
     // Update is called once per frame
     void Update()
     {

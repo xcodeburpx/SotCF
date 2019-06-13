@@ -31,6 +31,22 @@ public class GameSetup : MonoBehaviour
     {
         GameSetup.GS.teamPlayerDisplay.text = "";
         GameSetup.GS.winningDisplay.text = "";
+
+        StartCoroutine(MusicLevelObjects());
+    }
+
+    IEnumerator MusicLevelObjects()
+    {
+        yield return new WaitForSeconds(0.5f);
+        AudioSource[] audioHandlers = GameObject.FindObjectsOfType<AudioSource>();
+
+        if (PlayerPrefs.HasKey("MusicLevel")) {
+            for (int i = 0; i < audioHandlers.Length; i++)
+            {
+                audioHandlers[i].volume = PlayerPrefs.GetFloat("MusicLevel");
+            }
+        }
+
     }
 
     public void DisconnectPlayer()

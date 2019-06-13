@@ -18,6 +18,12 @@ public class DeathSoundPlay : MonoBehaviour
     {
         int soundPicker = Random.Range(0, deathSounds.Length);
         PV = GetComponent<PhotonView>();
+
+        if (PlayerPrefs.HasKey("MusicLevel"))
+        {
+            audioManager.volume = PlayerPrefs.GetFloat("MusicLevel");
+        }
+
         if (PV.IsMine)
         {
             PV.RPC("RPC_PlayDeathClip", RpcTarget.All, soundPicker);

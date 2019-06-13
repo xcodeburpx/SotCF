@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class VolumeValueChange : MonoBehaviour
 {
 
+    public Slider musicSlider;
     // Reference to Audio Source component
     private AudioSource audioSrc;
 
@@ -16,6 +18,10 @@ public class VolumeValueChange : MonoBehaviour
 
         // Assign Audio Source component to control it
         audioSrc = GetComponent<AudioSource>();
+        if (PlayerPrefs.HasKey("MusicLevel"))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("MusicLevel");
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +37,7 @@ public class VolumeValueChange : MonoBehaviour
     // and sets it as musicValue
     public void SetVolume(float vol)
     {
+        PlayerPrefs.SetFloat("MusicLevel", vol);
         musicVolume = vol;
     }
 }

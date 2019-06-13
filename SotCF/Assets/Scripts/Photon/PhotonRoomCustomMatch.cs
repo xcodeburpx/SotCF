@@ -275,7 +275,7 @@ public class PhotonRoomCustomMatch : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     private void RPC_CreatePlayer()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PhotonNetworkPlayer"), transform.position, Quaternion.identity,0);
+        PhotonNetwork.Instantiate(Path.Combine("Misc","PhotonPrefabs" , "PhotonNetworkPlayer"), transform.position, Quaternion.identity,0);
     }
 
 

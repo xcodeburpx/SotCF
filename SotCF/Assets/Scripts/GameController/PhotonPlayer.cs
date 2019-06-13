@@ -40,7 +40,7 @@ public class PhotonPlayer : MonoBehaviour
                 var ran = Random.insideUnitSphere * PhotonRoomCustomMatch.room.radiusSpawn;
                 ran.y = 0.0f;
 
-                myAvatar = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerAvatar"),
+                myAvatar = PhotonNetwork.Instantiate(Path.Combine("Misc","PhotonPrefabs" ,"PlayerAvatar"),
                     GameSetup.GS.spawnPoints[spawnPicker].position+ran, GameSetup.GS.spawnPoints[spawnPicker].rotation, 0);
                 //myAvatar.GetComponent<AvatarSetup>().enabled = true;
                 myAvatar.GetComponent<PlayerMovement>().enabled = true;

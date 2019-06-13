@@ -68,7 +68,7 @@ public class AvatarSetup : MonoBehaviour
                 GameSetup.GS.teamPlayerDisplay.text = "Spectator Mode";
                 GameSetup.GS.winningDisplay.text = "";
 
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Graves", gravesNames[gravePicker]),transform.position, transform.rotation,0);
+                PhotonNetwork.Instantiate(Path.Combine("Misc","PhotonPrefabs", "Graves", gravesNames[gravePicker]),transform.position, transform.rotation,0);
                 PhotonNetwork.Destroy(this.gameObject);
             }
         }

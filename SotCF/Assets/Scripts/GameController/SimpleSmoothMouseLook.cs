@@ -27,6 +27,18 @@ public class SimpleSmoothMouseLook : MonoBehaviour
         // Set target direction for the character body to its inital state.
         if (characterBody)
             targetCharacterDirection = characterBody.transform.localRotation.eulerAngles;
+
+        if(PlayerPrefs.HasKey("MouseSensitivity"))
+        {
+            float playerSens = PlayerPrefs.GetFloat("MouseSensitivity");
+            sensitivity = new Vector2(playerSens, playerSens);
+        }
+
+        if (PlayerPrefs.HasKey("MouseSmoothness"))
+        {
+            float playerSmooth = PlayerPrefs.GetFloat("MouseSmoothness");
+            smoothing = new Vector2(playerSmooth, playerSmooth);
+        }
     }
 
     void Update()

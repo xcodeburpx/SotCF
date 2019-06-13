@@ -56,7 +56,7 @@ public class AvatarCombat : MonoBehaviour
         }
 
         healthDisplay.text = avatarSetup.playerHealth.ToString();
-        nameDisplay.text = avatarSetup.myName;
+        nameDisplay.text = "Team: " + avatarSetup.myName;
     }
 
     void RPC_Shooting()
